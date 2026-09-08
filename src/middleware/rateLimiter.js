@@ -1,24 +1,28 @@
 const rateLimit = require("express-rate-limit");
 
 const authRateLimit = rateLimit({
-  windowMs: 15 * 16 * 1000,
-  standardHeaders: false,
-  limit: 10,
-  legacyHeaders: true,
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
   message: {
     success: false,
-    message: "Too many attempts try in 15 minute",
-  },
-});
-const localRateLimit = rateLimit({
-  windowMs: 15 * 16 * 1000,
-  standardHeaders: false,
-  limit: 1000,
-  legacyHeaders: true,
-  message: {
-    success: false,
-    message: "Too many attempts try in 15 minute",
+    message: "Too many login attempts. Please try again in 15 minutes.",
   },
 });
 
-module.exports = { authRateLimit, localRateLimit };
+const localRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: "Too many requests. Please try again in 15 minutes.",
+  },
+});
+
+module.exports = {
+  authRateLimit,
+  localRateLimit,
+};
