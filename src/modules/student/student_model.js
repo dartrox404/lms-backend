@@ -3,12 +3,6 @@ const mongoose = require("mongoose");
 
 const studentSchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "User ID is required."],
-      unique: true,
-    },
     name: {
       type: String,
       required: [true, "Student name is required."],

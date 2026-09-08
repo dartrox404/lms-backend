@@ -15,7 +15,7 @@ const { globalValidate } = require("../../middleware/validate");
 const localValidation = require("../../validator/student_validator");
 
 // Protect all routes
-router.use(protect, rateLimit.authRateLimit);
+router.use(protect, rateLimit.localRateLimit);
 
 router
   .route("/")

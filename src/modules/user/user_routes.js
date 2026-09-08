@@ -7,7 +7,7 @@ const rateLimit = require("../../middleware/rateLimiter");
 const authValidation = require("../../validator/user_validator");
 const { globalValidate } = require("../../middleware/validate");
 
-router.use(protect, rateLimit.localRateLimit);
+router.use(rateLimit.authRateLimit);
 // Public routes
 router.post(
   "/register",

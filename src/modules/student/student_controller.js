@@ -31,9 +31,8 @@ exports.getStudentById = catchAsync(async (req, res, next) => {
 
 // POST /api/students
 exports.createStudent = catchAsync(async (req, res, next) => {
-  const { userId, name, rollNumber, department, semester, cgpa } = req.body;
+  const { name, rollNumber, department, semester, cgpa } = req.body;
   const student = await studentRepo.create({
-    userId,
     name,
     rollNumber,
     department,

@@ -7,8 +7,8 @@ exports.globalValidate = (schema, property = "body") => {
       abortEarly: false,
     });
     if (error) {
-      const messsage = error.details.map((e) => e.message).join(", ");
-      return next(new appError(messsage, 400));
+      const message = error.details.map((e) => e.message).join(", ");
+      return next(new appError(message, 400));
     }
     req[property] = value;
     next();
