@@ -14,13 +14,14 @@ const rateLimit = require("../../middleware/rateLimiter");
 const { globalValidate } = require("../../middleware/validate");
 const { restrictTo } = require("../../middleware/restrictRole");
 const localValidation = require("../../validator/student_validator");
+const queryValidation = require("../../validator/student_validator");
 
 // Protect all routes
 router.use(protect, rateLimit.localRateLimit);
 
 router
   .route("/")
-  .get(getAllStudents)
+  .get(queryValidation.getStudentsQueryValidator, getAllStudents)
   .post(
     restrictTo("admin"),
     globalValidate(localValidation.createValidator),

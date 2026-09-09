@@ -9,14 +9,23 @@ const sendstatus = (text, res, statusCode, data) => {
 
 // GET /api/students
 exports.getAllStudents = catchAsync(async (req, res, next) => {
-  const students = await studentRepo.findAll();
-  if (students.length === 0) {
-    return next(new AppError("Insufficent Records to show", 404));
-  }
+  const { students, total } = await studentRepo.findAll(req.queryOptions);
+  const { page, limit } = req.queryOptions;
+  const totalPages = Math.ceil(page / limit);
   res.status(200).json({
     success: true,
-    count: students.length,
-    data: students,
+    message: "Students retrived successfully",
+    results: students.length,
+    pagination: {
+      total,
+      page,
+      limit,
+      totalPages,
+      hasNextPage: page < totalPages,
+      nextPage: page < totalPages ? page + 1 : null,
+      previousPage: page > 1 ? page - 1 : null,
+    },
+    context: students,
   });
 });
 
