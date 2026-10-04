@@ -3,7 +3,7 @@ const Joi = require("./joi");
 
 exports.connectDatabase = async () => {
   try {
-    const conn = await mongoose.connect(Joi.SERVER.URL);
+    const conn = await mongoose.connect(Joi.MONGO_URL);
     console.log(
       `🌱 MongoDb has been connected successfully : ${conn.connection.host}`,
     );
