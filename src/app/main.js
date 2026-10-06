@@ -3,6 +3,7 @@ const app = e();
 const cor = require("cors");
 const { errorHandler } = require("../middleware/globalError");
 const helmet = require("helmet");
+const { authRateLimit, localRateLimit } = require("../middleware/rateLimiter");
 const authRoutes = require("../modules/user/user_routes");
 const localRoutes = require("../modules/student/student_routes");
 const AppError = require("../utils/appError");
@@ -18,8 +19,8 @@ app.get("/", async (req, res) => {
   res.send("BINGO");
 });
 
-app.use("/api/v2/auth", authRoutes);
-app.use("/api/v3/students", localRoutes);
+app.use("/api/v2/auth", authRateLimit, authRoutes);
+app.use("/api/v3/students", localRateLimit, localRoutes);
 
 app.use((req, res, next) => {
   return next(new AppError(`Route : ${req.originalUrl} not found`, 404));

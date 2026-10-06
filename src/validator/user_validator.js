@@ -1,7 +1,7 @@
 // modules/user/user.validator.js
 const Joi = require("joi");
 
-const registerValidator = Joi.object({
+exports.registerValidator = Joi.object({
   name: Joi.string().min(2).max(50).required().messages({
     "string.base": "Name must be a string.",
     "string.min": "Name must be at least 2 characters.",
@@ -27,7 +27,7 @@ const registerValidator = Joi.object({
   }),
 });
 
-const loginValidator = Joi.object({
+exports.loginValidator = Joi.object({
   email: Joi.string().email().required().messages({
     "string.base": "Email must be a string.",
     "string.email": "Please provide a valid email.",
@@ -39,8 +39,3 @@ const loginValidator = Joi.object({
     "any.required": "Password is required.",
   }),
 });
-
-module.exports = {
-  registerValidator,
-  loginValidator,
-};

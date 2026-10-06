@@ -3,20 +3,17 @@ const express = require("express");
 const router = express.Router();
 const { login, profile, register } = require("./user_controller");
 const { protect } = require("../../middleware/auth");
-const rateLimit = require("../../middleware/rateLimiter");
-const authValidation = require("../../validator/user_validator");
+const {
+  loginValidator,
+  registerValidator,
+} = require("../../validator/user_validator");
 const { globalValidate } = require("../../middleware/validate");
 
-router.use(rateLimit.authRateLimit);
 // Public routes
-router.post(
-  "/register",
-  globalValidate(authValidation.registerValidator),
-  register,
-);
-router.post("/login", globalValidate(authValidation.loginValidator), login);
+router.route("/register").post(globalValidate(registerValidator), register);
+router.route("/login").post(globalValidate(loginValidator), login);
 
 // Protected routes
-router.get("/me", protect, profile);
+router.route("/me").get(protect, profile);
 
 module.exports = router;

@@ -21,8 +21,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   let decoded;
 
   try {
-    decoded = jwt.verify(token, Joi.JWT.JWT_SECRET);
-   
+    decoded = jwt.verify(token, Joi.JWT_SECRET);
   } catch (err) {
     if (err.name === "TokenExpiredError") {
       return next(

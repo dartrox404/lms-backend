@@ -1,6 +1,6 @@
 const rateLimit = require("express-rate-limit");
 
-const authRateLimit = rateLimit({
+exports.authRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 10,
   standardHeaders: true,
@@ -11,7 +11,7 @@ const authRateLimit = rateLimit({
   },
 });
 
-const localRateLimit = rateLimit({
+exports.localRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 1000,
   standardHeaders: true,
@@ -21,8 +21,3 @@ const localRateLimit = rateLimit({
     message: "Too many requests. Please try again in 15 minutes.",
   },
 });
-
-module.exports = {
-  authRateLimit,
-  localRateLimit,
-};
